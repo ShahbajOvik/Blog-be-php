@@ -1,13 +1,13 @@
 <?php include "inc/header.php";?>
 
 <?php
-	if(!isset($_GET['category']) || $_GET['category']==NULL)
+	if(!isset($_GET['search']) || $_GET['search']==NULL)
 	{
 		header("Location: 404.php");
 	}
 	else
 	{
-		$id = ($_GET['category']);
+		$search = ($_GET['search']);
 	}
 ?>
 
@@ -16,7 +16,7 @@
 		<div class="maincontent clear">
 
         <?php
-			$query = "select * from tbl_post where cat=$id";
+			$query = "select * from tbl_post where title like '%$search%' or body like '%$search%'";
 			$post = $db->select($query);
 
 			if($post)
@@ -36,7 +36,9 @@
 			</div>
 		</div>
                     
-        <?php } } else {header("Location:404.php") ;}?>
+        <?php } } else {?>
+            <p>No related Post avilable..!!</p>
+            <?php }?>
     </div>
 <?php include "inc/sidebar.php"; ?>
 <?php include "inc/footer.php"; ?>
